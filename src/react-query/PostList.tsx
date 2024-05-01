@@ -1,5 +1,6 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import usePosts from "./hooks/usePosts";
 
 interface Post {
   id: number;
@@ -9,21 +10,19 @@ interface Post {
 }
 
 const PostList = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
+  const fetchPost = () =>
     axios
-      .get('https://jsonplaceholder.typicode.com/posts')
-      .then((res) => setPosts(res.data))
-      .catch((error) => setError(error));
-  }, []);
+      .get<Post[]>("https://jsonplaceholder.typicode.com/posts")
+      .then((res) => res.data);
 
-  if (error) return <p>{error}</p>;
+  const { data, error, isLoading } = usePosts();
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>{error.message}</p>;
 
   return (
     <ul className="list-group">
-      {posts.map((post) => (
+      {data?.map((post) => (
         <li key={post.id} className="list-group-item">
           {post.title}
         </li>
