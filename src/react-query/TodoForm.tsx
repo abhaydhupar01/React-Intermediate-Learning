@@ -1,31 +1,10 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRef } from "react";
-import { Todo } from "./hooks/useTodos";
-import axios from "axios";
+import useAddTodo from "./hooks/useAddTodo";
 
 const TodoForm = () => {
-  const queryClient = useQueryClient();
-  const addTodo = useMutation<Todo, Error, Todo>({
-    mutationFn: (todo: Todo) =>
-      axios
-        .post<Todo>("https://jsonplaceholder.typicode.com/todos", todo)
-        .then((res) => res.data),
-    onSuccess: (savedTodo, newTodo) => {
-      // Now we should tell react to update the cache. This doesn't work for json placeholder as data is not updated there. So nothing will come after fetching
-      // Approach : Invalidating the cahce
-      // queryClient.invalidateQueries({
-      // queryKey: ['todos']     // This will invalidate all data whose queryKey is todos
-      // })
-
-      // Approach 2: Update the data in cache directly
-      queryClient.setQueriesData<Todo[]>(["todos"], (todos) => [
-        savedTodo,
-        ...(todos || []),
-      ]);
-
-      // Remove the value from Input field after success
-      if (ref.current) ref.current.value = "";
-    },
+  const addTodo = useAddTodo(() => {
+    // Remove the value from Input field after success
+    if (ref.current) ref.current.value = "";
   });
   const ref = useRef<HTMLInputElement>(null);
 
