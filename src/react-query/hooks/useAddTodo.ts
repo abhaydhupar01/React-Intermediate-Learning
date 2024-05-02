@@ -1,16 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Todo } from "./useTodos";
-import axios from "axios";
-import APIClient from "../services/api-client";
+import todoService, { Todo } from "../services/todoService";
 
-const apiClient = new APIClient<Todo>('/todos');
 
 const useAddTodo = (onAdd: () => void) => {
     const queryClient = useQueryClient();
     
     return useMutation<Todo, Error, Todo>({
-        mutationFn: (todo: Todo) => apiClient.post(todo),
-        
+        mutationFn: (todo: Todo) => todoService.post(todo),
         onSuccess: (savedTodo, newTodo) => {
         // Now we should tell react to update the cache. This doesn't work for json placeholder as data is not updated there. So nothing will come after fetching
         // Approach : Invalidating the cahce
