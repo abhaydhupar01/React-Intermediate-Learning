@@ -1,6 +1,8 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import APIClient from "../services/api-client";
 
+const apiClient = new APIClient('/posts')
 interface Post {
     id: number;
     title: string;
