@@ -1,5 +1,5 @@
 import { useReducer, useState } from "react";
-import loginReducer from "./reducers/LoginReducer";
+import loginReducer from "./reducers/loginReducer";
 
 const LoginStatus = () => {
   // const [user, setUser] = useState('');
