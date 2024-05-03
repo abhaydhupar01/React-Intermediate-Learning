@@ -1,15 +1,16 @@
-import { useReducer, useState } from "react";
-import loginReducer from "./reducers/loginReducer";
+import { useContext, useReducer, useState } from "react";
+import LoginContext from "./contexts/loginContext";
 
 const LoginStatus = () => {
   // const [user, setUser] = useState('');
-  const [user, dispatch] = useReducer(loginReducer, "");
+  const { user, dispatchUser } = useContext(LoginContext);
+
   if (user)
     return (
       <>
         <div>
           <span className="mx-2">{user}</span>
-          <a onClick={() => dispatch({ type: "LOGOUT" })} href="#">
+          <a onClick={() => dispatchUser({ type: "LOGOUT" })} href="#">
             Logout
           </a>
         </div>
@@ -18,7 +19,7 @@ const LoginStatus = () => {
   return (
     <div>
       <a
-        onClick={() => dispatch({ type: "LOGIN", name: "Abhay jii" })}
+        onClick={() => dispatchUser({ type: "LOGIN", name: "Abhay jii" })}
         href="#"
       >
         Login
