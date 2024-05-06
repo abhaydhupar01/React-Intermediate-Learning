@@ -1,6 +1,6 @@
 import "./App.css";
 import HomePage from "./routing/HomePage";
-import LoginProvider from "./state-management/LoginProvider";
+import LoginProvider from "./state-management/auth/LoginProvider";
 import NavBar from "./state-management/NavBar";
 import { TasksProvider } from "./state-management/tasks";
 
