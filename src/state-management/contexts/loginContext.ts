@@ -3,7 +3,7 @@ import { Action } from "../reducers/loginReducer";
 
 interface LoginContextType {
   user: string;
-  dispatchUser: Dispatch<Action>;
+  dispatch: Dispatch<Action>;
 }
 
 const LoginContext = react.createContext<LoginContextType>(
