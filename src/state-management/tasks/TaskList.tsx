@@ -1,5 +1,8 @@
-import useTasks from "./hooks/useTasks";
-import useLogin from "./hooks/useLogin";
+import useLogin from "../hooks/useLogin";
+import { useContext } from "react";
+import TasksContext from "./tasksContext";
+
+const useTasks = () => useContext(TasksContext);
 
 interface Task {
   id: number;
