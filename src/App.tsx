@@ -11,16 +11,15 @@ import TasksContext from "./state-management/contexts/tasksContext";
 import NavBar from "./state-management/NavBar";
 import HomePage from "./routing/HomePage";
 import LoginProvider from "./state-management/LoginProvider";
+import TasksProvider from "./state-management/TasksProvider";
 
 function App() {
-  const [tasks, dispatch] = useReducer(taskReducer, []);
-
   return (
     <LoginProvider>
-      <TasksContext.Provider value={{ tasks, dispatch }}>
+      <TasksProvider>
         <NavBar />
         <HomePage />
-      </TasksContext.Provider>
+      </TasksProvider>
     </LoginProvider>
   );
 }
